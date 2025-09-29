@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<Ubisec>
+  <info>
+     <path>${COMPILER_PATH}</path> <!-- Placeholder, resolved at runtime -->
+  </info>
+</Ubisec>
