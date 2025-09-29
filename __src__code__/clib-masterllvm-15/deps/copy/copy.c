@@ -45,7 +45,11 @@ int copy_dir(char *dir_path, char *target_dir)
     int err = 0;
     tinydir_dir dir;
     tinydir_file file;
-    tinydir_open(&dir, dir_path);
+        int open_result = tinydir_open(&dir, dir_path);
+        if (open_result != 0) {
+            // Handle error: print message, return error code, or cleanup
+            return -1;
+        }
     check_dir(target_dir);
 
     while (dir.has_next) {

@@ -1,4 +1,3 @@
-
 /**
  * fs.c
  *
@@ -20,10 +19,14 @@
 void
 fs_error (const char *prefix) {
   char fmt[256];
-  sprintf(fmt, "fs: %s: error", prefix);
+-  sprintf(fmt, "fs: %s: error", prefix);
+  int written = snprintf(fmt, sizeof(fmt), "fs: %s: error", prefix ? prefix : "(null)");
+  if (written < 0 || (size_t)written >= sizeof(fmt)) {
+    /* Truncate to ensure null-termination on overflow or encoding error */
+    fmt[sizeof(fmt) - 1] = '\0';
+  }
   perror(fmt);
 }
-
 
 FILE *
 fs_open (const char *path, const char *flags) {
@@ -194,9 +197,16 @@ fs_fread (FILE *file) {
 
 
 char *
-fs_fnread (FILE *file, int len) {
-  char *buffer = (char*) malloc(sizeof(char) * (len + 1));
-  size_t n = fread(buffer, 1, len, file);
+fs_fnread (FILE *file, size_t len) {
+  if (!file || len == 0) return NULL;
+  size_t size = len;
+  char *buffer = (char*) malloc(size + 1);
+  if (!buffer) return NULL;
+  size_t n = fread(buffer, 1, size, file);
+  if (n > size) {
+    free(buffer);
+    return NULL;
+  }
   buffer[n] = '\0';
   return buffer;
 }

@@ -16,17 +16,16 @@
 
 char *
 strdup(const char *str) {
-  if (NULL == (char *) str) {
+  if (str == NULL) {
     return NULL;
   }
 
-  int len = strlen(str) + 1;
-  char *buf = malloc(len);
-
-  if (buf) {
-    memset(buf, 0, len);
-    memcpy(buf, str, len - 1);
+  size_t len = strlen(str) + 1;
+  char *buf = (char *)malloc(len);
+  if (buf == NULL) {
+    return NULL;
   }
+  memcpy(buf, str, len); // Copy including the null terminator
   return buf;
 }
 

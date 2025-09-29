@@ -15,7 +15,7 @@
 #ifdef _WIN32
 #define FS_OPEN_READ "rb"
 #define FS_OPEN_WRITE "wb"
-#define FS_OPEN_READWRITE "rwb"
+#define FS_OPEN_READWRITE "r+b"
 #else
 #define FS_OPEN_READ "r"
 #define FS_OPEN_WRITE "w"

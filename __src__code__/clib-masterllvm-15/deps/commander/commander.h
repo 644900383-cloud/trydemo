@@ -22,6 +22,7 @@
 
 #ifndef COMMANDER_MAX_ARGS
 #define COMMANDER_MAX_ARGS 32
+#define COMMANDER_ARGV_SIZE (COMMANDER_MAX_ARGS + 1) /* Extra slot for NULL sentinel */
 #endif
 
 /*
@@ -64,7 +65,7 @@ typedef struct command {
   int option_count;
   command_option_t options[COMMANDER_MAX_OPTIONS];
   int argc;
-  char *argv[COMMANDER_MAX_ARGS];
+  char *argv[COMMANDER_ARGV_SIZE]; /* Extra slot for NULL sentinel */
   char **nargv;
 } command_t;
 

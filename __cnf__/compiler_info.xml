@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <Ubisec>
   <info>
-    <path>/home/wei/saga/saga-grope/testResult/PerformanceTest/OPEN_SOURCE/clib/clib-masterllvm-15</path>
+     <path>${COMPILER_PATH}</path> <!-- Placeholder, resolved at runtime -->
   </info>
 </Ubisec>
